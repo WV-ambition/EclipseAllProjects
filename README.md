@@ -1,0 +1,2 @@
+# EclipseAllProjects
+all eclipse projects
