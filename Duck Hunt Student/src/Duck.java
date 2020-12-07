@@ -12,6 +12,7 @@ public class Duck implements MouseListener{
 	private int x = (int)(Math.random()*(700))-49;
 	private int y = 400;
 	private int vx, vy;
+	private int misses = 0;
 	private Image img; // image of the frog
 	private AffineTransform tx = AffineTransform.getTranslateInstance(x, y);
 	

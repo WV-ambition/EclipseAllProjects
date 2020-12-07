@@ -33,6 +33,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener {
 		super.paintComponent(g);
 		//tree.paint(g);
 		duck.paint(g);
+		dog.paint(g);
 		foreground.paint(g);
 	}
 	
