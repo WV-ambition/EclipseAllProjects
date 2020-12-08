@@ -36,8 +36,10 @@ public class Dog {
 		 */
 		if (Math.random()<= 0.5) img = img2;
 		else img = img1;
-		
-		g2.drawImage(img, tx, null);   
+		x = 400;
+		y = 350;
+		g2.drawImage(img, tx, null);  
+		tx.setToTranslation(x,  y);
 	}
 	
 	private void init(double a, double b) {

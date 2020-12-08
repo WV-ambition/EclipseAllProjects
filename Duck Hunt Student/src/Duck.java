@@ -12,7 +12,7 @@ public class Duck implements MouseListener{
 	private int x = (int)(Math.random()*(700))-49;
 	private int y = 400;
 	private int vx, vy;
-	private int misses = 0;
+	public int misses = 0;
 	private Image img; // image of the frog
 	private AffineTransform tx = AffineTransform.getTranslateInstance(x, y);
 	
@@ -22,16 +22,16 @@ public class Duck implements MouseListener{
 		img = getImage("GlassesDuck.png");
 		//img = getImage("duck.gif"); //load the image for duck here
 		init(x, y); 				//initialize the location of the image
-		vy = (int)(Math.random()*3)+3;
-		vx = (int)(Math.random()*3)+3;
+		vy = (int)(Math.random()*10)+4;
+		vx = (int)(Math.random()*10)+4;
 		if (Math.random()<=0.5)vx*=-1;
 	}
 	
 	public void resetDuck() {
 		x = (int)(Math.random()*(800)-50); 
 		y = 400;
-		vy = (int)(Math.random()*2)+4;
-		vx = (int)(Math.random()*2)+4;
+		vy = (int)(Math.random()*10)+4;
+		vx = (int)(Math.random()*10)+4;
 		if (Math.random()<=0.5) vx*=-1;
 	}
 	
@@ -81,17 +81,19 @@ public class Duck implements MouseListener{
 		if(hitbox.contains (mX, mY)) {
 			System.out.println("ouch");
 			soundQuack.play();
-			
+			vx = 0;
+			vy = -15;
 			//what happens to the duck if hit?!
 			//have the duck fall from the sky
 			//after a hit
 			//play the "bang" sound
 		}
-		
+		else misses++;
 		//can you have it say "haha" if it misses only by a little
 		
 		return false;
 	}
+	public int getMisses() {return misses;}
 	
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
