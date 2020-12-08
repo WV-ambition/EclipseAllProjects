@@ -11,7 +11,9 @@ public class Dog {
 	private Image img2;
 	private Image img;
 	private AffineTransform tx = AffineTransform.getTranslateInstance(x, y);
-
+	private int time = 0;
+	
+	
 	public Dog() {
 		img1 = getImage("dog1.png"); //load the image for Tree
 		img2 = getImage("dog2.png");
@@ -34,14 +36,19 @@ public class Dog {
 		 * For example, maybe within a span of time, img is reference img1 half the time and referencing img2 the other half.
 		 * You will need to code it so that the animation looks as natural as possible. 
 		 */
-		if (Math.random()<= 0.5) img = img2;
+		if (time % 10 >= 5) img = img2;
 		else img = img1;
 		x = 400;
 		y = 350;
+		time++;
 		g2.drawImage(img, tx, null);  
 		tx.setToTranslation(x,  y);
 	}
+	public int getTime() {return time;}
 	
+	public void changeTime(int newTime) {time = newTime;}
+	
+	public void resetTime() {time = 0;}
 	private void init(double a, double b) {
 		tx.setToTranslation(a, b);
 		tx.scale(1, 1);

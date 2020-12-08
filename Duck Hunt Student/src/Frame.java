@@ -15,6 +15,7 @@ import javax.swing.Timer;
 
 public class Frame extends JPanel implements ActionListener, MouseListener {
 	public boolean paintDog = false;
+	
 	//Objects that need to be drawn on the JFrame in the paint method.
 	// 1) write the code to create a Ground object as one of your instance variables
 	Ground foreground = new Ground();
@@ -28,6 +29,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener {
 	//create music sound class
 	Music soundBang = new Music("Clang.wav", false);
 	Music soundQuack = new Music("Quack.wav", false);
+	Music soundHaha = new Music("haha.wav", false);
 	
 	public void paint(Graphics g) {
 		//invoke the paint methods of the foreground and tree objects
@@ -36,12 +38,23 @@ public class Frame extends JPanel implements ActionListener, MouseListener {
 		duck.paint(g);
 		duck2.paint(g);
 		foreground.paint(g);
-		if (duck.getMisses() % 3 == 0 && duck.getMisses() != 0)  {dog.paint(g);}
+		if (duck.getMisses() % 3 == 0 && duck.getMisses() != 0 && dog.getTime() < 100)  {
+			paintDog = true;
+			}
+		else if (dog.getTime() >= 100) {
+			duck.resetMisses(); 
+			dog.resetTime();
+			paintDog = false;
+			}
+		//else paintDog = false;
+		if (paintDog == true) dog.paint(g);
 	}
 	
 	public static void main(String[] arg) {
 		Frame f = new Frame();
 	}
+	
+	
 	
 	public Frame() {
 		JFrame f = new JFrame("Duck Hunt");

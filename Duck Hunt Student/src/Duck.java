@@ -17,7 +17,7 @@ public class Duck implements MouseListener{
 	private AffineTransform tx = AffineTransform.getTranslateInstance(x, y);
 	
 	Music soundQuack = new Music("Quack.wav", false);
-
+	
 	public Duck() {
 		img = getImage("GlassesDuck.png");
 		//img = getImage("duck.gif"); //load the image for duck here
@@ -94,6 +94,8 @@ public class Duck implements MouseListener{
 		return false;
 	}
 	public int getMisses() {return misses;}
+	
+	public void resetMisses() {misses = 0;}
 	
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
