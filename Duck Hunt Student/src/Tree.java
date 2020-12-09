@@ -12,8 +12,8 @@ public class Tree {
 
 	public Tree() {
 		img = getImage("tree.png"); //load the image for Tree
-		init(x, y); 				//initialize the location of the image
-	}
+		init(x, y); //initialize the location of the image
+	} 
 	
 	public void paint(Graphics g) {
 		

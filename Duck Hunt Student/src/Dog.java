@@ -6,49 +6,41 @@ import java.awt.geom.AffineTransform;
 import java.net.URL;
 
 public class Dog {
-	private int x = 0,y = 180;
-	private Image img1; // image of the frog
-	private Image img2;
-	private Image img;
+	private int x = 400,y = 350; //starting dog position
+	private int time = 0; //initializes int time to 0
+	private Image img1; // first image
+	private Image img2; // second dog image
+	private Image img; // actual img object
 	private AffineTransform tx = AffineTransform.getTranslateInstance(x, y);
-	private int time = 0;
-	
 	
 	public Dog() {
-		img1 = getImage("dog1.png"); //load the image for Tree
-		img2 = getImage("dog2.png");
-		img = img1;
-		init(x, y); 				//initialize the location of the image
+		img1 = getImage("dog1.png"); //assigns img1 as dog1.png
+		img2 = getImage("dog2.png"); //assigns img2 as dog2.png
+		img = img1; //sets img to img1 first
+		init(x, y); //initialize the location of the image
 	}
 	
 	public void paint(Graphics g) {
-		
 		//these are the 2 lines of code needed draw an image on the screen
 		Graphics2D g2 = (Graphics2D) g;
-
-		/* to be completed by student */
-		/* currently, img1 and img2 represent two different of the dog.
-		 * If you continually swap between the two images, you end up with an animation of a laughing dog. 
-		 * 
-		 * The third Image instance variable is img, whatever this variable points to (img1 or img2) it is drawn on the screen
-		 * 
-		 * Add the block of code necessary to alternate what img reference, which is either img1 or img2.
-		 * For example, maybe within a span of time, img is reference img1 half the time and referencing img2 the other half.
-		 * You will need to code it so that the animation looks as natural as possible. 
-		 */
-		if (time % 10 >= 5) img = img2;
-		else img = img1;
-		x = 400;
-		y = 350;
-		time++;
+		//every 5 "time units", switches the dog image to simulate laughing
+		if (time % 10 >= 5) img = img2; else img = img1;
+		//increments time by 1
+		time++; 
 		g2.drawImage(img, tx, null);  
-		tx.setToTranslation(x,  y);
+		tx.setToTranslation(x,  y); //call this every time paint is updated
 	}
+	
+	//getter for the time int
 	public int getTime() {return time;}
 	
+	//setter for the time int
 	public void changeTime(int newTime) {time = newTime;}
 	
+	//resetter for the time int (resets to 0)
 	public void resetTime() {time = 0;}
+	
+	
 	private void init(double a, double b) {
 		tx.setToTranslation(a, b);
 		tx.scale(1, 1);

@@ -9,51 +9,39 @@ import java.awt.geom.AffineTransform;
 import java.net.URL;
 
 public class Duck implements MouseListener{
-	private int x = (int)(Math.random()*(700))-49;
-	private int y = 400;
-	private int vx, vy;
-	public int misses = 0;
-	private Image img; // image of the frog
+	private int x,y, vx, vy; 
+	public int misses = 0; //initializes int misses to 0;
+	private Image img; // image of the duck
 	private AffineTransform tx = AffineTransform.getTranslateInstance(x, y);
 	
 	Music soundQuack = new Music("Quack.wav", false);
 	
 	public Duck() {
-		img = getImage("GlassesDuck.png");
-		//img = getImage("duck.gif"); //load the image for duck here
-		init(x, y); 				//initialize the location of the image
-		vy = (int)(Math.random()*10)+4;
-		vx = (int)(Math.random()*10)+4;
-		if (Math.random()<=0.5)vx*=-1;
+		img = getImage("GlassesDuck.png"); //loads image for duck into img
+		resetDuck();
+		init(x, y); //initialize the location of the image
 	}
 	
+	//resets the duck back to the bottom
 	public void resetDuck() {
-		x = (int)(Math.random()*(800)-50); 
-		y = 400;
-		vy = (int)(Math.random()*10)+4;
-		vx = (int)(Math.random()*10)+4;
-		if (Math.random()<=0.5) vx*=-1;
+		x = (int)(Math.random()*(800)-50);  //sets x to random within window
+		y = 400; // sets duck y to bottom of screen
+		vy = (int)(Math.random()*10)+4; //sets velocity y random from 4 to 13
+		vx = (int)(Math.random()*10)+4; //sets velocity x random from 4 to 13
+		if (Math.random()<=0.5)vx*=-1; //half the time, velocity is other (negative) direction
 	}
 	
 	public void paint(Graphics g) {
-		
 		//these are the 2 lines of code needed draw an image on the screen
 		Graphics2D g2 = (Graphics2D) g;
 		g2.drawImage(img, tx, null);
 		
-		x += vx;
-		y -= vy;
-		if (y <= -50) this.resetDuck(); //if exits top, goes to bottom
+		x += vx; // increment x by x velocity 
+		y -= vy; // increment y by y velocity
+		if (y <= -50) this.resetDuck(); //if exits top, goes to bottom and resets
 		if (x < -50 || x > 750)  vx *= -1; //if exits left or right, bounces
-		//get the bird to move randomly up from the bottom of the screen - it should start at the bottom - make it bounce off of the top and side borders
 		
-		
-			//perform intersection task
-		
-		tx.setToTranslation(x,  y); //must call this every time you update x and y
-		   
-	
-		
+		tx.setToTranslation(x,  y); // must call this every time you update x and y
 	}
 	
 	private void init(double a, double b) {
@@ -71,36 +59,36 @@ public class Duck implements MouseListener{
 		}
 		return tempImage;
 	}
-	//Music bang = new Music("bang2.wav", false);
 	
+	//tests if mouse clicked duck - if yes, make duck fall
 	public boolean collided (int mX, int mY) {
-		System.out.println (mX + ":" + mY);
+		System.out.println (mX + ":" + mY); 
+
+		Rectangle hitbox = new Rectangle (x,y,150,150); //defines the duck hitbox
 		
-		Rectangle hitbox = new Rectangle (x,y,150,150);
-		
+		//runs if mouse clicked duck
 		if(hitbox.contains (mX, mY)) {
 			System.out.println("ouch");
-			soundQuack.play();
-			vx = 0;
-			vy = -15;
-			//what happens to the duck if hit?!
-			//have the duck fall from the sky
-			//after a hit
-			//play the "bang" sound
+			soundQuack.play(); //play quack sound
+			img = getImage("TiltedGlassesDuck.png"); //changes image to tilted duck image
+			vx = 0; //duck stops moving horizontally
+			vy = -15; //duck starts falling downwards (negative velocity in y)
+			return true;
 		}
-		else misses++;
-		//can you have it say "haha" if it misses only by a little
-		
+		else misses++; // if didn't click duck, add 1 to misses
+		//*************************can you have it say "haha" if it misses only by a little
 		return false;
 	}
+	
+	//getter for misses
 	public int getMisses() {return misses;}
 	
+	//resetter for misses
 	public void resetMisses() {misses = 0;}
 	
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
